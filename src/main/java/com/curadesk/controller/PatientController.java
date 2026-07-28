@@ -1,11 +1,13 @@
 package com.curadesk.controller;
 
-import com.curadesk.entity.Patient;
+import com.curadesk.dto.PatientRequestDto;
+import com.curadesk.dto.PatientResponseDto;
 import com.curadesk.service.PatientService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -19,17 +21,34 @@ public class PatientController {
     }
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
-        return patientService.savePatient(patient);
+    public ResponseEntity<PatientResponseDto> createPatient(
+            @RequestBody PatientRequestDto patientRequestDto) {
+
+        PatientResponseDto response = patientService.savePatient(patientRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
-    public List<Patient> getAllPatients(){
-        return patientService.getAllPatients();
+    public ResponseEntity<List<PatientResponseDto>> getAllPatients(){
+        List<PatientResponseDto> response = patientService.getAllPatients();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
-    public Patient getPatientById(@PathVariable Long id){
-        return patientService.getPatientById(id);
+    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id){
+        PatientResponseDto responselist = patientService.getPatientById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responselist);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PatientResponseDto> updatePatient(@PathVariable Long id, @RequestBody PatientRequestDto dto){
+        PatientResponseDto response = patientService.updatePatient(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable Long id){
+        patientService.deletePatientById(id);
+        return ResponseEntity.noContent().build();
     }
 }
