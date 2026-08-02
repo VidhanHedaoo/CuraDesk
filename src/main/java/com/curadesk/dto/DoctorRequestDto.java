@@ -1,7 +1,7 @@
 package com.curadesk.dto;
 
-import com.curadesk.enums.BloodGroup;
-import com.curadesk.enums.Gender;
+
+import com.curadesk.enums.Qualification;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,12 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PatientRequestDto {
+public class DoctorRequestDto {
 
     @NotBlank
     private String firstName;
@@ -23,19 +21,18 @@ public class PatientRequestDto {
     private String lastName;
 
     @NotBlank
+    private String phoneNumber;
+
+    @NotBlank
     @Email
     private String email;
 
     @NotBlank
-    private String phoneNumber;
-
-    private String address;
-    private String emergencyContact;
-    private LocalDate dateOfBirth;
+    private String specialization;
 
     @NotNull
-    private Gender gender;
+    private Qualification qualification;
 
     @NotNull
-    private BloodGroup bloodGroup;
+    private Integer yearsOfExperience;
 }

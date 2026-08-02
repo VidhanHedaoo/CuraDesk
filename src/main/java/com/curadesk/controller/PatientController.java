@@ -3,6 +3,7 @@ package com.curadesk.controller;
 import com.curadesk.dto.PatientRequestDto;
 import com.curadesk.dto.PatientResponseDto;
 import com.curadesk.service.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<PatientResponseDto> createPatient(
-            @RequestBody PatientRequestDto patientRequestDto) {
+            @Valid @RequestBody PatientRequestDto patientRequestDto) {
 
         PatientResponseDto response = patientService.savePatient(patientRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -30,18 +31,19 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<List<PatientResponseDto>> getAllPatients(){
-        List<PatientResponseDto> response = patientService.getAllPatients();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        List<PatientResponseDto> responselist = patientService.getAllPatients();
+        return ResponseEntity.status(HttpStatus.OK).body(responselist);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id){
-        PatientResponseDto responselist = patientService.getPatientById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(responselist);
+        PatientResponseDto response = patientService.getPatientById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> updatePatient(@PathVariable Long id, @RequestBody PatientRequestDto dto){
+    public ResponseEntity<PatientResponseDto> updatePatient(
+            @PathVariable Long id,@Valid @RequestBody PatientRequestDto dto){
         PatientResponseDto response = patientService.updatePatient(id, dto);
         return ResponseEntity.ok(response);
     }
