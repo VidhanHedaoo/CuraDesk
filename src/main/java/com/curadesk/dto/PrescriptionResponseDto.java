@@ -1,0 +1,21 @@
+package com.curadesk.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class PrescriptionResponseDto {
+
+    private Long id;
+    private String medicineName;
+    private String dosage;
+    private String frequency;
+    private Integer durationInDays;
+    private String instructions;
+    private Long medicalRecordId;
+}

@@ -16,26 +16,26 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PatientRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "FirstName is required")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "LastName is required")
     private String lastName;
 
     @NotBlank
     @Email
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "PhoneNumber is required")
     private String phoneNumber;
 
     private String address;
     private String emergencyContact;
     private LocalDate dateOfBirth;
 
-    @NotNull
+    @NotNull(message = "Gender is required")
     private Gender gender;
 
-    @NotNull
+    @NotNull(message = "BloodGroup is required")
     private BloodGroup bloodGroup;
 }

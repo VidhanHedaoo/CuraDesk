@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -25,4 +28,11 @@ public class Doctor {
 
     @Enumerated(EnumType.STRING)
     private Qualification qualification;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctor")
+    private List<MedicalRecord> medicalRecords = new ArrayList<>();
+
 }

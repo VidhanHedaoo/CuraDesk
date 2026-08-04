@@ -2,13 +2,12 @@ package com.curadesk.entity;
 
 import com.curadesk.enums.BloodGroup;
 import com.curadesk.enums.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -38,5 +37,11 @@ public class Patient {
     private BloodGroup bloodGroup;
 
     private String emergencyContact;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "patient")
+    private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 }
